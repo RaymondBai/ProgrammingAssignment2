@@ -1,7 +1,9 @@
-## Put comments here that give an overall description of what your
-## functions do
+## makeCasheMatrix initiates two objects: matrix x and inverse matrix x_inverse.
+## It then creates four functions (getters and setters) that can retrieve or 
+## modify the values within objects before returning them as a list to the 
+## parent environment.
 
-## matrix x and x_inverse are variables in the parent environment 
+## x and x_inverse are variables in the parent environment 
 ## (makeCasheMatrix) and can be modified with <<- inside setters
 
 makeCacheMatrix <- function(x = matrix()) {
@@ -20,16 +22,19 @@ makeCacheMatrix <- function(x = matrix()) {
 }.
 
 
-## Write a short comment describing this function
+## casheSolve calls getinverse() to retrieve existing inverse matrix
+## If the result is not NULL, then it returns the valid, cached inverse matrix
+## If the result is NULL, then it retrieves the matrix, calculates the inverse,
+## sets x_inverse to that and prints it.
 
-cacheSolve <- function(x, ...) {
-    x_inverse <- x$getinverse()
+cacheSolve <- function(casheMatrix, ...) {
+    x_inverse <- casheMatrix$getinverse()
     if(!is.null(x_inverse)){
         message("getting cached inverse matrix")
         return(x_inverse)
     }
-    x_matrix <- x$get()
-    x_inverse <- solve(x_matrix)
-    x$setinverse(x_inverse)
-    x_inverse
+    x_matrix <- casheMatrix$get()
+    x_inverse_calculated <- solve(x_matrix)
+    casheMatrix$setinverse(x_inverse-calculated)
+    x_inverse_calculated
 }
