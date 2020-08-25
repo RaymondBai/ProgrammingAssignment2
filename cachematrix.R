@@ -19,7 +19,7 @@ makeCacheMatrix <- function(x = matrix()) {
     getinverse <- function() x_inverse ## lexical scoping feature
     list(set = set, get = get, setinverse = setinverse, getinverse = getinverse)
 
-}.
+}
 
 
 ## casheSolve calls getinverse() to retrieve existing inverse matrix
@@ -35,6 +35,6 @@ cacheSolve <- function(casheMatrix, ...) {
     }
     x_matrix <- casheMatrix$get()
     x_inverse_calculated <- solve(x_matrix)
-    casheMatrix$setinverse(x_inverse-calculated)
+    casheMatrix$setinverse(x_inverse_calculated)
     x_inverse_calculated
 }
